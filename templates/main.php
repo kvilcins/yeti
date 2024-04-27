@@ -28,7 +28,7 @@
                             <span class="lot__cost"><?= formatPrice($ad['price']) ?></span>
                         </div>
                         <div class="lot__timer timer">
-                            <!-- Время до окончания торгов -->
+                            <?= time_to_midnight(); ?>
                         </div>
                     </div>
                 </div>
