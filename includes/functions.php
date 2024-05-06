@@ -1,6 +1,6 @@
 <?php
-function include_template($template_name, $data) {
-    $template_name = 'templates/' . $template_name;
+function include_template($template_name, $data, $template_path = 'templates/') {
+    $template_name = $template_path . $template_name;
     $result = '';
     
     // Проверка существования файла
