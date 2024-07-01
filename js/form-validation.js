@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('.form--add-lot');
+    if (!form) return; // Проверяем наличие формы, чтобы избежать ошибок
+    
     const submitButton = form.querySelector('[type="submit"]');
     const photoLabel = form.querySelector('label[for="photo2"]');
     const photoPreview = form.querySelector('.preview__img img');
@@ -13,11 +15,15 @@ document.addEventListener('DOMContentLoaded', () => {
         inputs.forEach(input => {
             if (!input.checkValidity()) {
                 input.classList.add('form__item--invalid');
-                input.nextElementSibling.style.display = 'block';
+                if (input.nextElementSibling) {
+                    input.nextElementSibling.style.display = 'block';
+                }
                 hasErrors = true;
             } else {
                 input.classList.remove('form__item--invalid');
-                input.nextElementSibling.style.display = 'none';
+                if (input.nextElementSibling) {
+                    input.nextElementSibling.style.display = 'none';
+                }
             }
         });
         
@@ -35,7 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', event => {
         const inputs = form.querySelectorAll('input, select, textarea');
         inputs.forEach(input => {
-            input.nextElementSibling.style.display = 'none';
+            if (input.nextElementSibling) {
+                input.nextElementSibling.style.display = 'none';
+            }
         });
         photoLabel.style.display = 'none';
         form.reset(); // Сбрасываем значения формы
@@ -43,24 +51,32 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Отображение выбранного изображения в превью
     const fileInput = form.querySelector('input[type="file"]');
-    fileInput.addEventListener('change', event => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        
-        reader.onload = function(e) {
-            photoPreview.src = e.target.result;
-            previewContainer.classList.add('form__item--uploaded');
-            previewContainer.style.display = 'block';
-            previewContainer.style.position = 'unset';
-            inputFileContainer.classList.add('hidden');
-        };
-        
-        reader.readAsDataURL(file);
-    });
+    if (fileInput) {
+        fileInput.addEventListener('change', event => {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                if (photoPreview) {
+                    photoPreview.src = e.target.result;
+                }
+                if (previewContainer) {
+                    previewContainer.classList.add('form__item--uploaded');
+                    previewContainer.style.display = 'block';
+                    previewContainer.style.position = 'unset';
+                }
+                if (inputFileContainer) {
+                    inputFileContainer.classList.add('hidden');
+                }
+            };
+            
+            reader.readAsDataURL(file);
+        });
+    }
     
     // Проверка на наличие изображения при нажатии на кнопку "добавить лот"
     submitButton.addEventListener('click', event => {
-        if (!fileInput.value) {
+        if (fileInput && !fileInput.value) {
             photoLabel.style.display = 'block'; // Показываем метку, если изображение не выбрано
         }
     });

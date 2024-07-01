@@ -42,3 +42,8 @@
         </a>
     </div>
 </div>
+
+<?php if (isset($id)): ?>
+    <meta name="lot-id" content="<?= htmlspecialchars($id) ?>">
+<?php endif; ?>
+<script src="../js/viewed_lots.js"></script>
