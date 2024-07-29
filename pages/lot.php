@@ -25,7 +25,7 @@ $is_auth = (bool) rand(0, 1);
 $user_name = 'Константин';
 $user_avatar = 'img/user.jpg';
 
-$head = include_template('head.php', ['title' => "Лот $title"], '../templates/');
+$head = include_template('head.php', ['title' => "Лот $title", 'id' => $id], '../templates/');
 $header = include_template('header.php', ['is_auth' => $is_auth, 'user_name' => $user_name, 'user_avatar' => $user_avatar], '../templates/');
 $footer = include_template('footer.php', ['categories' => $categories, 'ads' => $ads, 'id' => $id], '../templates/');
 

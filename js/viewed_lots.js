@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', function () {
             addViewedLot(lotId);
         }
     }
+    
+    // Обновление списка просмотренных лотов
+    updateViewedLots();
 });
 
 function addViewedLot(lotId) {
@@ -16,4 +19,11 @@ function addViewedLot(lotId) {
         viewedLots.push(lotId);
         localStorage.setItem('viewed_lots', JSON.stringify(viewedLots));
     }
+}
+
+function updateViewedLots() {
+    const viewedLots = JSON.parse(localStorage.getItem('viewed_lots')) || [];
+    document.cookie = `viewed_lots=${JSON.stringify(viewedLots)}; path=/`;
+    
+    // Можно добавить логику для обновления DOM здесь, если необходимо
 }
