@@ -19,7 +19,7 @@
         <?php else: ?>
             <ul class="user-menu__list">
                 <li class="user-menu__item">
-                    <a href="/login">Войти</a>
+                    <a href="/pages/login.php">Войти</a>
                 </li>
                 <li class="user-menu__item">
                     <a href="/register">Регистрация</a>
